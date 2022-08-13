@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Ubuntu:wght@400;700&display=swap');
+$main: #5285f2;
+$main-light: #f0f7ff;
+$inactive: #8a8a8a;
+$warn: #e55858;
+$warn-light: #f8e3e3;
+
+:root {
+	background-color: #f0f7ff;
+}
+
+nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 270px;
+	height: 100%;
+	border-top-right-radius: 1.4rem;
+	border-bottom-right-radius: 1.4rem;
+	background-color: #fff;
+
+	.title {
+		text-align: center;
+		font-weight: 700;
+		font-size: 1.4em;
+		line-height: 26px;
+		color: $main;
+		padding: 25px 0;
+		margin: 15px 0 40px 0;
+		font-family: 'Ubuntu', sans-serif;
+	}
+
+	.list-wrapper {
+		margin-top: 10px;
+		margin-bottom: auto;
+		position: relative;
+		height: 80%;
+
+		li {
+			display: block;
+			margin: 0 auto;
+			padding: 15px 0 15px 50px;
+			margin-bottom: 10px;
+			font-family: 'Open Sans', sans-serif;
+			color: $inactive;
+			font-weight: 700;
+			font-size: 20px;
+
+			&:hover {
+				cursor: pointer;
+				color: $main;
+				background-color: $main-light;
+			}
+		}
+
+		> li {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			margin-top: auto;
+			color: $warn;
+			&:hover {
+				color: $warn;
+				background-color: $warn-light;
+			}
+		}
+	}
+}
