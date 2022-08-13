@@ -3,24 +3,32 @@
 .TopWrapper {
 	padding: 10px;
 	margin: 14px auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .Input {
-	max-width: 800px;
+	width: 800px;
 	display: flex;
 	align-items: center;
 	background-color: #fff;
 	border-radius: 2rem;
+	margin-right: 15px;
 
 	> div {
 		padding: 0 3px 0 15px;
 	}
 	input {
 		padding: 5px 15px;
-		width: 100%;
 		height: 52px;
 		letter-spacing: 0.5px;
 		color: '#ddd';
 		font-family: 'Open Sans', sans-serif;
 	}
+}
+
+.Switch {
+	display: flex;
+	align-items: center;
 }
