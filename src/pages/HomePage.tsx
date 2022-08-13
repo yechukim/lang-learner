@@ -1,5 +1,12 @@
+import PageLayout from '../components/PageLayout'
+import TopBar from '../components/TopBar'
+
 function HomePage() {
-	return <div>homepage</div>
+	return (
+		<PageLayout>
+			<TopBar />
+		</PageLayout>
+	)
 }
 
 export default HomePage
