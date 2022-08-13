@@ -1,5 +1,7 @@
+import PageLayout from '../components/PageLayout'
+
 function BookmarkPage() {
-	return <div>bookmark</div>
+	return <PageLayout>bookmark</PageLayout>
 }
 
 export default BookmarkPage
