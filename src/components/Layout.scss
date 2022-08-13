@@ -3,6 +3,7 @@ $main: #5285f2;
 $main-light: #f0f7ff;
 $inactive: #8a8a8a;
 $warn: #e55858;
+$warn-light: #f8e3e3;
 
 :root {
 	background-color: #f0f7ff;
@@ -40,11 +41,12 @@ $warn: #e55858;
 			margin-top: 10px;
 			margin-bottom: auto;
 			position: relative;
+			height: 80%;
 
 			li {
 				display: block;
 				margin: 0 auto;
-				padding: 15px;
+				padding: 15px 0 15px 50px;
 				margin-bottom: 10px;
 				font-family: 'Open Sans', sans-serif;
 				color: $inactive;
@@ -59,7 +61,15 @@ $warn: #e55858;
 			}
 
 			> li {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				margin-top: auto;
 				color: $warn;
+				&:hover {
+					color: $warn;
+					background-color: $warn-light;
+				}
 			}
 		}
 	}
