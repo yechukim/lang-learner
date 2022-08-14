@@ -6,16 +6,11 @@ import classNames from 'classnames'
 
 function TopBar() {
 	const { theme, setTheme } = useContext(ThemeContext)
-	const [switchValue] = useState(theme)
 
 	return (
 		<div className="TopWrapper">
 			<SearchInput theme={theme} />
-			<ThemeSwitch
-				theme={theme}
-				setTheme={setTheme}
-				switchValue={switchValue}
-			/>
+			<ThemeSwitch theme={theme} setTheme={setTheme} />
 		</div>
 	)
 }
@@ -61,7 +56,7 @@ function ThemeSwitch({ setTheme, theme }) {
 	return (
 		<div className={classNames('Switch', theme)}>
 			<i className="ri-sun-line ri-lg" />
-			<Switch size="large" checked={checked} onChange={handleChange} />
+			<Switch size="medium" checked={checked} onChange={handleChange} />
 			<i className="ri-moon-line ri-lg" />
 		</div>
 	)
