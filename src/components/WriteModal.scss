@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Ubuntu:wght@400;700&display=swap');
+@import '../styles/colors.scss';
+
+.ModalWrapper {
+	width: 100%;
+
+	> .Modal {
+		width: 573px;
+		height: 720px;
+		background-color: #fff;
+		margin: 0 auto;
+		border-radius: 2em;
+
+		h2 {
+			padding: 50px 10px;
+			text-align: center;
+			color: $main;
+			font-family: 'Open Sans', sans-serif;
+		}
+		.Selection {
+			margin: 0 auto;
+			padding-left: 10px;
+			padding-right: 15px;
+			border-radius: 2em;
+			width: 160px;
+			height: 40px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: $main-light;
+
+			select {
+				max-width: 100%;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 800;
+				font-size: 0.8rem;
+				color: $main-dark;
+			}
+		}
+
+		.TargetArea {
+			padding: 10px 15px;
+			display: block;
+			border-radius: 1.2em;
+			margin: 20px auto;
+			width: 450px;
+			height: 130px;
+			background-color: $main-light;
+			resize: none;
+			color: $darkest;
+			font-weight: 400;
+			font-size: 0.8rem;
+			font-family: 'Open Sans', sans-serif;
+		}
+	}
+
+	&.dark {
+		> .Modal {
+			background-color: $darkest;
+
+			.Selection {
+				background-color: $main-dark;
+
+				select {
+					color: $main-light;
+				}
+			}
+		}
+		.TargetArea {
+			color: $main-light;
+			background-color: $main-dark;
+		}
+	}
+}
