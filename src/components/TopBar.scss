@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Ubuntu:wght@400;700&display=swap');
+@import '../styles/colors.scss';
 
 .TopWrapper {
 	padding: 10px;
@@ -16,19 +17,38 @@
 	border-radius: 2rem;
 	margin-right: 15px;
 
+	&.dark {
+		background-color: $darkest;
+	}
 	> div {
 		padding: 0 3px 0 15px;
+	}
+	.ri-xl {
+		&.dark {
+			color: $light-gray;
+		}
 	}
 	input {
 		padding: 5px 15px;
 		height: 52px;
+		max-width: 750px;
+		width: 100%;
 		letter-spacing: 0.5px;
-		color: '#ddd';
 		font-family: 'Open Sans', sans-serif;
+
+		&.dark {
+			color: $light-gray;
+		}
 	}
 }
 
 .Switch {
 	display: flex;
 	align-items: center;
+
+	&.dark {
+		i {
+			color: $light-gray;
+		}
+	}
 }

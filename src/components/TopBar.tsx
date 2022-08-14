@@ -2,6 +2,7 @@ import './TopBar.scss'
 import Switch from '@mui/material/Switch'
 import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
+import classNames from 'classnames'
 
 function TopBar() {
 	const { theme, setTheme } = useContext(ThemeContext)
@@ -9,39 +10,56 @@ function TopBar() {
 
 	return (
 		<div className="TopWrapper">
-			<SearchInput />
-			<ThemeSwitch setTheme={setTheme} switchValue={switchValue} />
+			<SearchInput theme={theme} />
+			<ThemeSwitch
+				theme={theme}
+				setTheme={setTheme}
+				switchValue={switchValue}
+			/>
 		</div>
 	)
 }
 
 export default TopBar
 
-function SearchInput() {
+function SearchInput({ theme }) {
+	const [keyword, setKeyword] = useState('')
+
+	const handleSearch = (e) => {
+		const { value } = e.target
+		setKeyword(value)
+
+		if (value.length > 15) return alert("it can't be longer than 15 letters")
+	}
 	return (
-		<div className="Input">
+		<div className={classNames('Input', theme)}>
 			<div>
-				<i className="ri-search-line ri-xl" />
+				<i className={classNames('ri-search-line ri-xl', theme)} />
 			</div>
-			<input type="text" placeholder="search by keyword" />
+			<input
+				value={keyword}
+				onChange={handleSearch}
+				className={theme}
+				type="text"
+				placeholder="search by keyword"
+			/>
 		</div>
 	)
 }
 
-function ThemeSwitch({ setTheme }) {
+function ThemeSwitch({ setTheme, theme }) {
 	const [checked, setChecked] = useState(false)
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(e.target.checked)
 	}
 	useEffect(() => {
-		console.log(checked)
-		if (checked) return setTheme('light')
-		setTheme('dark')
+		if (checked) return setTheme('dark')
+		setTheme('light')
 	}, [checked])
 
 	return (
-		<div className="Switch">
+		<div className={classNames('Switch', theme)}>
 			<i className="ri-sun-line ri-lg" />
 			<Switch size="large" checked={checked} onChange={handleChange} />
 			<i className="ri-moon-line ri-lg" />
