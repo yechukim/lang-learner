@@ -1,0 +1,16 @@
+@import '../styles/colors.scss';
+
+.ButtonWrapper {
+	width: 58px;
+	height: 58px;
+	background-color: $main;
+	border-radius: 29px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	> i {
+		color: #fff;
+	}
+}
