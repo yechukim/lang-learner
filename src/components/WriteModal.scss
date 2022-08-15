@@ -3,12 +3,16 @@
 
 .ModalWrapper {
 	width: 100%;
+	height: 100vh;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
 
 	> .Modal {
 		width: 573px;
-		height: 840px;
+		height: 700px;
 		background-color: #fff;
-		margin: 0 auto;
+		margin: 20px auto;
 		border-radius: 2em;
 		position: relative;
 
@@ -20,10 +24,6 @@
 			color: $darkest;
 			cursor: pointer;
 			transition: 0.4s ease-in-out;
-
-			> i .dark {
-				color: $main-light;
-			}
 
 			&:hover {
 				transform: rotate(360deg);
@@ -71,7 +71,7 @@
 			border-radius: 1.2em;
 			margin: 20px auto;
 			width: 450px;
-			height: 165px;
+			height: 100px;
 			background-color: $main-light;
 			resize: none;
 			color: $darkest;
@@ -86,8 +86,15 @@
 	}
 
 	&.dark {
+		background-color: rgba(255, 255, 255, 0.1);
 		> .Modal {
 			background-color: $darkest;
+
+			.CloseButton {
+				i {
+					color: $main-light;
+				}
+			}
 
 			.Selection {
 				background-color: $main-dark;

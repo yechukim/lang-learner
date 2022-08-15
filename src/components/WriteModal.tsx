@@ -30,7 +30,7 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 			<div className={classNames('ModalWrapper', theme)}>
 				<div className="Modal">
 					<div className="CloseButton" onClick={handleClose}>
-						<i className={classNames('ri-close-line ri-2x', theme)} />
+						<i className="ri-close-line ri-2x" />
 					</div>
 					<h2>What did you learn today?</h2>
 					<form action="">
