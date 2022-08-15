@@ -2,10 +2,14 @@ import classNames from 'classnames'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import languages from '../data/languages'
+import TextButton from './TextButton'
 import './WriteModal.scss'
 
 function WriteModal() {
 	const { theme } = useContext(ThemeContext)
+	const handleClick = () => {
+		console.log('add click')
+	}
 	return (
 		<div className={classNames('ModalWrapper', theme)}>
 			<div className="Modal">
@@ -13,6 +17,12 @@ function WriteModal() {
 				<form action="">
 					<LanguageSelect target />
 					<LanguageSelect />
+					<TextButton
+						size="large"
+						color="blue"
+						text="Add"
+						handleClick={handleClick}
+					/>
 				</form>
 			</div>
 		</div>
