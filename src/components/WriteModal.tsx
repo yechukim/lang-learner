@@ -5,7 +5,13 @@ import languages from '../data/languages'
 import TextButton from './TextButton'
 import './WriteModal.scss'
 
-function WriteModal() {
+type ModalType = {
+	isOpen: boolean
+	handleClose: () => void
+}
+function WriteModal({ isOpen, handleClose }: ModalType) {
+	if (!isOpen) return null
+
 	const { theme } = useContext(ThemeContext)
 	const handleClick = () => {
 		console.log('add click')
@@ -13,6 +19,9 @@ function WriteModal() {
 	return (
 		<div className={classNames('ModalWrapper', theme)}>
 			<div className="Modal">
+				<div className="CloseButton" onClick={handleClose}>
+					<i className={classNames('ri-close-line ri-2x', theme)} />
+				</div>
 				<h2>What did you learn today?</h2>
 				<form action="">
 					<LanguageSelect type="target" />

@@ -10,6 +10,25 @@
 		background-color: #fff;
 		margin: 0 auto;
 		border-radius: 2em;
+		position: relative;
+
+		.CloseButton {
+			display: inline-block;
+			position: absolute;
+			right: 20px;
+			top: 10px;
+			color: $darkest;
+			cursor: pointer;
+			transition: 0.4s ease-in-out;
+
+			> i .dark {
+				color: $main-light;
+			}
+
+			&:hover {
+				transform: rotate(360deg);
+			}
+		}
 
 		h2 {
 			padding: 50px 10px;
