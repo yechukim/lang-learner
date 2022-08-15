@@ -15,8 +15,15 @@ function WriteModal() {
 			<div className="Modal">
 				<h2>What did you learn today?</h2>
 				<form action="">
-					<LanguageSelect target />
+					<LanguageSelect type="target" />
 					<LanguageSelect />
+					<p>Memo</p>
+					<textarea
+						className="TargetArea memo"
+						name="memo"
+						cols={40}
+						rows={5}
+					/>
 					<TextButton
 						size="large"
 						color="blue"
@@ -32,15 +39,15 @@ function WriteModal() {
 export default WriteModal
 
 type LangType = {
-	target?: boolean
+	type?: string
 }
 
-function LanguageSelect({ target }: LangType) {
+function LanguageSelect({ type }: LangType) {
 	return (
 		<>
-			<div className={classNames('Selection', target)}>
-				<label htmlFor={'lang' + target} />
-				<select name="language" id={'lang' + target}>
+			<div className={classNames('Selection', type)}>
+				<label htmlFor={'lang' + type} />
+				<select name="language" id={'lang' + type}>
 					<option value="">languages</option>
 					{languages.map((item) => (
 						<option key={item.code} value={item.name}>
@@ -49,7 +56,7 @@ function LanguageSelect({ target }: LangType) {
 					))}
 				</select>
 			</div>
-			<textarea className="TargetArea" name="Text1" cols={40} rows={5} />
+			<textarea className="TargetArea" name={type} cols={40} rows={5} />
 		</>
 	)
 }

@@ -6,7 +6,7 @@
 
 	> .Modal {
 		width: 573px;
-		height: 720px;
+		height: 840px;
 		background-color: #fff;
 		margin: 0 auto;
 		border-radius: 2em;
@@ -28,8 +28,16 @@
 			justify-content: center;
 			align-items: center;
 			background-color: $main-light;
-
+			// for custom arrow if in case I want to change
+			// &:after {
+			// 	content: '\f078';
+			// 	font: normal normal normal 17px/1 FontAwesome;
+			// 	color: #0ebeff;
+			// }
 			select {
+				// -webkit-appearance: none;
+				// -moz-appearance: none;
+				// appearance: none;
 				max-width: 100%;
 				font-family: 'Open Sans', sans-serif;
 				font-weight: 800;
@@ -44,13 +52,17 @@
 			border-radius: 1.2em;
 			margin: 20px auto;
 			width: 450px;
-			height: 130px;
+			height: 165px;
 			background-color: $main-light;
 			resize: none;
 			color: $darkest;
 			font-weight: 400;
 			font-size: 0.8rem;
 			font-family: 'Open Sans', sans-serif;
+
+			&.memo {
+				height: 100px;
+			}
 		}
 	}
 
@@ -70,5 +82,11 @@
 			color: $main-light;
 			background-color: $main-dark;
 		}
+	}
+	p {
+		font-size: 0.9em;
+		font-weight: bold;
+		letter-spacing: 1px;
+		text-align: center;
 	}
 }
