@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Ubuntu:wght@400;700&display=swap');
+@import '../styles/colors.scss';
+
+.TextButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	> button {
+		width: 140px;
+		height: 43px;
+		font-family: 'Ubuntu', sans-serif;
+		letter-spacing: 1.4px;
+		border-radius: 1em;
+		color: $main-light;
+		font-size: 1.2em;
+
+		&.small {
+			width: 121px;
+			height: 32px;
+			font-size: 0.8em;
+		}
+		&.large {
+			width: 140px;
+			height: 43px;
+			font-size: 1.2em;
+		}
+
+		&.blue {
+			background-color: $c-blue;
+		}
+		&.pink {
+			background-color: $c-pink;
+		}
+		&.yellow {
+			background-color: $c-yellow;
+		}
+		&.orange {
+			background-color: $c-orange;
+		}
+		&.green {
+			background-color: $c-green;
+		}
+	}
+}
