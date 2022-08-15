@@ -1,14 +1,14 @@
+import { useState } from 'react'
 import AddButton from '../components/AddButton'
 import PageLayout from '../components/PageLayout'
 import TopBar from '../components/TopBar'
 import WriteModal from '../components/WriteModal'
 
-function HomePage() {
+function HomePage({ handleClick }) {
 	return (
 		<PageLayout>
 			<TopBar />
-			<AddButton />
-			<WriteModal />
+			<AddButton handleClick={handleClick} />
 		</PageLayout>
 	)
 }

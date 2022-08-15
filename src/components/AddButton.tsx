@@ -1,8 +1,6 @@
 import './AddButton.scss'
-function AddButton() {
-	const handleClick = () => {
-		console.log('add button clicked')
-	}
+
+function AddButton({ handleClick }) {
 	return (
 		<div className="ButtonWrapper" onClick={handleClick}>
 			<i className="ri-add-line ri-xl"></i>

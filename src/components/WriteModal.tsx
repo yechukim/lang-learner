@@ -1,7 +1,8 @@
 import classNames from 'classnames'
-import { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import languages from '../data/languages'
+import ModalPortal from '../portal'
 import TextButton from './TextButton'
 import './WriteModal.scss'
 
@@ -10,6 +11,14 @@ type ModalType = {
 	handleClose: () => void
 }
 function WriteModal({ isOpen, handleClose }: ModalType) {
+	useEffect(() => {
+		const closeOnEsacpe = (e) => (e.key === 'Escape' ? handleClose() : null)
+		document.body.addEventListener('keydown', closeOnEsacpe)
+		return () => {
+			document.body.removeEventListener('keydown', closeOnEsacpe)
+		}
+	}, [handleClose])
+
 	if (!isOpen) return null
 
 	const { theme } = useContext(ThemeContext)
@@ -17,31 +26,33 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 		console.log('add click')
 	}
 	return (
-		<div className={classNames('ModalWrapper', theme)}>
-			<div className="Modal">
-				<div className="CloseButton" onClick={handleClose}>
-					<i className={classNames('ri-close-line ri-2x', theme)} />
+		<ModalPortal wrapperId="portal-root">
+			<div className={classNames('ModalWrapper', theme)}>
+				<div className="Modal">
+					<div className="CloseButton" onClick={handleClose}>
+						<i className={classNames('ri-close-line ri-2x', theme)} />
+					</div>
+					<h2>What did you learn today?</h2>
+					<form action="">
+						<LanguageSelect type="target" />
+						<LanguageSelect />
+						<p>Memo</p>
+						<textarea
+							className="TargetArea memo"
+							name="memo"
+							cols={40}
+							rows={5}
+						/>
+						<TextButton
+							size="large"
+							color="blue"
+							text="Add"
+							handleClick={handleClick}
+						/>
+					</form>
 				</div>
-				<h2>What did you learn today?</h2>
-				<form action="">
-					<LanguageSelect type="target" />
-					<LanguageSelect />
-					<p>Memo</p>
-					<textarea
-						className="TargetArea memo"
-						name="memo"
-						cols={40}
-						rows={5}
-					/>
-					<TextButton
-						size="large"
-						color="blue"
-						text="Add"
-						handleClick={handleClick}
-					/>
-				</form>
 			</div>
-		</div>
+		</ModalPortal>
 	)
 }
 

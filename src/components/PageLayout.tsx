@@ -7,7 +7,6 @@ type PageProps = {
 }
 function PageLayout({ children }: PageProps) {
 	const { theme } = useContext(ThemeContext)
-	console.log(theme)
 	return <div className={classNames('Wrapper', theme)}>{children}</div>
 }
 
