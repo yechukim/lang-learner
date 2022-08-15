@@ -43,7 +43,9 @@ function LanguageSelect({ target }: LangType) {
 				<select name="language" id={'lang' + target}>
 					<option value="">languages</option>
 					{languages.map((item) => (
-						<option value={item.name}>{item.name}</option>
+						<option key={item.code} value={item.name}>
+							{item.name}
+						</option>
 					))}
 				</select>
 			</div>
