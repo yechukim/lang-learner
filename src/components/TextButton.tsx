@@ -3,7 +3,7 @@ import React from 'react'
 import './TextButton.scss'
 
 type ButtonType = {
-	text: String
+	text: string
 	handleClick: () => void
 	size: 'small' | 'large'
 	color: 'pink' | 'yellow' | 'orange' | 'green' | 'blue'
