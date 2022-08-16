@@ -3,14 +3,14 @@
 
 .ModalWrapper {
 	width: 100%;
-	height: 100vh;
-	position: absolute;
+	height: 100%;
+	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
 	top: 0;
 
 	> .Modal {
 		width: 573px;
-		height: 700px;
+		height: 800px;
 		background-color: #fff;
 		margin: 20px auto;
 		border-radius: 2em;
@@ -21,17 +21,17 @@
 			position: absolute;
 			right: 20px;
 			top: 10px;
-			color: $darkest;
+			color: $main;
 			cursor: pointer;
 			transition: 0.4s ease-in-out;
 
 			&:hover {
-				transform: rotate(360deg);
+				transform: rotate(90deg);
 			}
 		}
 
 		h2 {
-			padding: 50px 10px;
+			padding: 50px 0 30px 0;
 			text-align: center;
 			color: $main;
 			font-family: 'Open Sans', sans-serif;
@@ -84,6 +84,20 @@
 			}
 		}
 	}
+	.ColorsText {
+		text-align: center;
+		h5 {
+			padding: 6px 12px;
+			border-radius: 1.2em;
+			display: inline-block;
+			color: $main-light;
+			font-family: 'Open Sans', sans-serif;
+			margin-bottom: 10px;
+			border: 2px solid $main-light;
+			background-color: $main;
+			letter-spacing: 1px;
+		}
+	}
 
 	&.dark {
 		background-color: rgba(255, 255, 255, 0.1);
@@ -111,6 +125,18 @@
 		p {
 			color: $main-light;
 		}
+
+		h5 {
+			padding: 6px 12px;
+			border-radius: 1.2em;
+			display: inline-block;
+			color: $light-gray;
+			font-family: 'Open Sans', sans-serif;
+			margin-bottom: 10px;
+			border: 2px solid $main-dark;
+			background-color: $darkest;
+			letter-spacing: 1px;
+		}
 	}
 	p {
 		color: $main-dark;
@@ -118,5 +144,37 @@
 		font-weight: bold;
 		letter-spacing: 1px;
 		text-align: center;
+	}
+}
+
+.PaletteWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	> .Palette {
+		cursor: pointer;
+		margin-bottom: 25px;
+		margin-right: 10px;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		background-color: #fff;
+
+		&:last-child {
+			margin-right: 0;
+		}
+		&.pink {
+			background-color: $c-pink;
+		}
+		&.blue {
+			background-color: $c-blue;
+		}
+		&.green {
+			background-color: $c-green;
+		}
+		&.yellow {
+			background-color: $c-yellow;
+		}
 	}
 }

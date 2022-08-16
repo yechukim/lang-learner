@@ -66,6 +66,10 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 						<i className="ri-close-line ri-2x" />
 					</div>
 					<h2>What did you learn today?</h2>
+					<div className="ColorsText">
+						<h5>Select the language colors!</h5>
+					</div>
+					<ColorPalette />
 					<form action="">
 						<LanguageSelect
 							value={first}
@@ -100,7 +104,7 @@ type LangType = {
 	value: string
 	handleChange: (text: ChangeEvent<HTMLTextAreaElement>) => void
 }
-
+//TODO: select 스타일 수정 필요 ( 사파리 - 크롬 다름 )
 function LanguageSelect({ type, value, handleChange }: LangType) {
 	return (
 		<>
@@ -119,7 +123,7 @@ function LanguageSelect({ type, value, handleChange }: LangType) {
 				placeholder={
 					type === 'target'
 						? 'Write what you learned today'
-						: 'Write your explanation in your language'
+						: 'Write explanation in your language'
 				}
 				className="TargetArea"
 				value={value}
@@ -129,5 +133,16 @@ function LanguageSelect({ type, value, handleChange }: LangType) {
 				rows={5}
 			/>
 		</>
+	)
+}
+
+const colors = ['pink', 'blue', 'green', 'yellow']
+function ColorPalette() {
+	return (
+		<div className="PaletteWrapper">
+			{colors.map((item) => (
+				<div className={classNames('Palette', item)} key={item} />
+			))}
+		</div>
 	)
 }
