@@ -38,11 +38,13 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 	const handleClick = () => {
 		if (!(first.length > 0))
 			return Swal.fire({
-				title: 'Alert',
-				text: 'Please write what you learned today',
+				title: '✏️',
+				text: 'Please write what you learned!',
 				icon: 'warning',
 				confirmButtonText: 'Okay',
 				confirmButtonColor: '#5285f2',
+				background: theme !== 'dark' ? '#fff' : '#1b1b1b',
+				color: theme !== 'dark' ? '#111' : '#ddd',
 			})
 		// save to db
 		// clear state
