@@ -108,8 +108,12 @@
 			color: $main-light;
 			background-color: $main-dark;
 		}
+		p {
+			color: $main-light;
+		}
 	}
 	p {
+		color: $main-dark;
 		font-size: 0.9em;
 		font-weight: bold;
 		letter-spacing: 1px;

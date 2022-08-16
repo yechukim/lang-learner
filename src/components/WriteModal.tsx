@@ -1,18 +1,29 @@
-import classNames from 'classnames'
-import React, { useContext, useEffect } from 'react'
+import {
+	ChangeEvent,
+	ChangeEventHandler,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import languages from '../data/languages'
 import ModalPortal from '../portal'
 import TextButton from './TextButton'
+import classNames from 'classnames'
 import './WriteModal.scss'
 
 type ModalType = {
 	isOpen: boolean
 	handleClose: () => void
 }
+
 function WriteModal({ isOpen, handleClose }: ModalType) {
+	const [first, setFirst] = useState('')
+	const [second, setSecond] = useState('')
+
 	useEffect(() => {
-		const closeOnEsacpe = (e) => (e.key === 'Escape' ? handleClose() : null)
+		const closeOnEsacpe = (e: KeyboardEvent) =>
+			e.key === 'Escape' ? handleClose() : null
 		document.body.addEventListener('keydown', closeOnEsacpe)
 		return () => {
 			document.body.removeEventListener('keydown', closeOnEsacpe)
@@ -22,8 +33,20 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 	if (!isOpen) return null
 
 	const { theme } = useContext(ThemeContext)
+
 	const handleClick = () => {
-		console.log('add click')
+		if (!(first.length > 0)) return alert('please write what you studied')
+		// save to db
+		// clear state
+		setFirst('')
+		setSecond('')
+		return handleClose()
+	}
+
+	const handleChange = (e: { target: HTMLTextAreaElement }) => {
+		const { value, name } = e.target
+		if (name === 'target') return setFirst(value)
+		setSecond(value)
 	}
 	return (
 		<ModalPortal wrapperId="portal-root">
@@ -34,8 +57,12 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 					</div>
 					<h2>What did you learn today?</h2>
 					<form action="">
-						<LanguageSelect type="target" />
-						<LanguageSelect />
+						<LanguageSelect
+							value={first}
+							handleChange={handleChange}
+							type="target"
+						/>
+						<LanguageSelect value={second} handleChange={handleChange} />
 						<p>Memo</p>
 						<textarea
 							className="TargetArea memo"
@@ -60,9 +87,11 @@ export default WriteModal
 
 type LangType = {
 	type?: string
+	value: string
+	handleChange: (text: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-function LanguageSelect({ type }: LangType) {
+function LanguageSelect({ type, value, handleChange }: LangType) {
 	return (
 		<>
 			<div className={classNames('Selection', type)}>
@@ -76,7 +105,19 @@ function LanguageSelect({ type }: LangType) {
 					))}
 				</select>
 			</div>
-			<textarea className="TargetArea" name={type} cols={40} rows={5} />
+			<textarea
+				placeholder={
+					type === 'target'
+						? 'Write what you learned today'
+						: 'Write your explanation in your language'
+				}
+				className="TargetArea"
+				value={value}
+				onChange={handleChange}
+				name={type}
+				cols={40}
+				rows={5}
+			/>
 		</>
 	)
 }
