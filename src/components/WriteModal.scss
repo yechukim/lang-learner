@@ -160,6 +160,12 @@
 		width: 30px;
 		height: 30px;
 		background-color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		> i {
+			color: #fff;
+		}
 
 		&:last-child {
 			margin-right: 0;

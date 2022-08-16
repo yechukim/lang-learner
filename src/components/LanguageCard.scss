@@ -14,6 +14,14 @@
 		overflow: scroll;
 		border-radius: 1.2em;
 		margin: 5px 5px 10px 5px;
+		transition: 0.2s ease-in-out;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+			rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+		cursor: pointer;
+
+		&:hover {
+			transform: scale(1.05) rotate(-1deg);
+		}
 
 		.NameOfLanguage {
 			margin: 10px 15px;
@@ -27,8 +35,11 @@
 			color: #fff;
 			letter-spacing: 1px;
 		}
+
 		&.dark {
 			background-color: $darkest;
+			box-shadow: rgba(85, 85, 85, 0.1) 0px 4px 6px -1px,
+				rgba(70, 70, 70, 0.06) 0px 2px 4px -1px;
 		}
 	}
 }

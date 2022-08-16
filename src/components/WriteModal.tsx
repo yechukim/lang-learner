@@ -18,9 +18,12 @@ type ModalType = {
 	handleClose: () => void
 }
 
+const colors = ['pink', 'blue', 'green', 'yellow'] as const
+
 function WriteModal({ isOpen, handleClose }: ModalType) {
 	const [first, setFirst] = useState('')
 	const [second, setSecond] = useState('')
+	const [selectedColor, setSelectedColor] = useState(colors[0])
 
 	useEffect(() => {
 		const closeOnEsacpe = (e: KeyboardEvent) =>
@@ -69,7 +72,10 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 					<div className="ColorsText">
 						<h5>Select the language colors!</h5>
 					</div>
-					<ColorPalette />
+					<ColorPalette
+						selectedColor={selectedColor}
+						setSelectedColor={setSelectedColor}
+					/>
 					<form action="">
 						<LanguageSelect
 							value={first}
@@ -136,12 +142,20 @@ function LanguageSelect({ type, value, handleChange }: LangType) {
 	)
 }
 
-const colors = ['pink', 'blue', 'green', 'yellow']
-function ColorPalette() {
+function ColorPalette({ setSelectedColor, selectedColor }) {
+	const handleColor = (item: string) => {
+		setSelectedColor(item)
+	}
 	return (
 		<div className="PaletteWrapper">
 			{colors.map((item) => (
-				<div className={classNames('Palette', item)} key={item} />
+				<div
+					onClick={() => handleColor(item)}
+					className={classNames('Palette', item)}
+					key={item}
+				>
+					{selectedColor === item && <i className="ri-check-line ri-xl"></i>}
+				</div>
 			))}
 		</div>
 	)

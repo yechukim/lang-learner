@@ -7,7 +7,7 @@ function LanguageCard() {
 	const { theme } = useContext(ThemeContext)
 	return (
 		<div className="CardWrapper">
-			{Array.from({ length: 5 }).map((item) => (
+			{Array.from({ length: 4 }).map((item) => (
 				<div className={classNames('Card', theme)}>
 					<div className="NameOfLanguage">French</div>
 				</div>
