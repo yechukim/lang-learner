@@ -18,7 +18,8 @@
     "react-router-dom": "6",
     "remixicon": "^2.5.0",
     "sass": "^1.54.4",
-    "styled-reset": "^4.4.2"
+    "styled-reset": "^4.4.2",
+    "sweetalert2": "^11.4.26"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

@@ -11,6 +11,7 @@ import ModalPortal from '../portal'
 import TextButton from './TextButton'
 import classNames from 'classnames'
 import './WriteModal.scss'
+import Swal from 'sweetalert2'
 
 type ModalType = {
 	isOpen: boolean
@@ -35,7 +36,14 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 	const { theme } = useContext(ThemeContext)
 
 	const handleClick = () => {
-		if (!(first.length > 0)) return alert('please write what you studied')
+		if (!(first.length > 0))
+			return Swal.fire({
+				title: 'Alert',
+				text: 'Please write what you learned today',
+				icon: 'warning',
+				confirmButtonText: 'Okay',
+				confirmButtonColor: '#5285f2',
+			})
 		// save to db
 		// clear state
 		setFirst('')
