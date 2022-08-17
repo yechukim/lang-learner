@@ -3,6 +3,7 @@ import Switch from '@mui/material/Switch'
 import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import classNames from 'classnames'
+import { getStorage, setStorage } from '../util/storage'
 
 function TopBar() {
 	const { theme, setTheme } = useContext(ThemeContext)
@@ -49,7 +50,11 @@ function ThemeSwitch({ setTheme, theme }) {
 		setChecked(e.target.checked)
 	}
 	useEffect(() => {
-		if (checked) return setTheme('dark')
+		if (checked) {
+			setStorage('@theme', 'dark')
+			return setTheme('dark')
+		}
+		setStorage('@theme', 'light')
 		setTheme('light')
 	}, [checked])
 
