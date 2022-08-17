@@ -1,10 +1,4 @@
-import {
-	ChangeEvent,
-	ChangeEventHandler,
-	useContext,
-	useEffect,
-	useState,
-} from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import languages from '../data/languages'
 import ModalPortal from '../portal'
@@ -12,6 +6,8 @@ import TextButton from './TextButton'
 import classNames from 'classnames'
 import './WriteModal.scss'
 import Swal from 'sweetalert2'
+import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { db } from '../services/firestore'
 
 type ModalType = {
 	isOpen: boolean
@@ -21,9 +17,17 @@ type ModalType = {
 const colors = ['pink', 'blue', 'green', 'yellow'] as const
 
 function WriteModal({ isOpen, handleClose }: ModalType) {
-	const [first, setFirst] = useState('')
-	const [second, setSecond] = useState('')
-	const [selectedColor, setSelectedColor] = useState(colors[0])
+	const { theme } = useContext(ThemeContext)
+
+	const [form, setForm] = useState({
+		color: colors[0],
+		target_lang: '',
+		explain_lang: '',
+		target_text: '',
+		explain_text: '',
+		memo: '',
+		date: '',
+	})
 
 	useEffect(() => {
 		const closeOnEsacpe = (e: KeyboardEvent) =>
@@ -36,10 +40,19 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 
 	if (!isOpen) return null
 
-	const { theme } = useContext(ThemeContext)
-
 	const handleClick = () => {
-		if (!(first.length > 0))
+		if (form.target_lang === '')
+			return Swal.fire({
+				title: '✏️',
+				text: 'Please select Language',
+				icon: 'warning',
+				confirmButtonText: 'Okay',
+				confirmButtonColor: '#5285f2',
+				background: theme !== 'dark' ? '#fff' : '#1b1b1b',
+				color: theme !== 'dark' ? '#111' : '#ddd',
+			})
+
+		if (!(form.target_text.length > 0))
 			return Swal.fire({
 				title: '✏️',
 				text: 'Please write what you learned!',
@@ -50,16 +63,36 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 				color: theme !== 'dark' ? '#111' : '#ddd',
 			})
 		// save to db
+		const addToDatabase = async () => {
+			try {
+				await addDoc(collection(db, 'cards'), {
+					...form,
+					date: Timestamp.now(),
+				})
+			} catch (e) {
+				console.error(e)
+			}
+		}
+		addToDatabase()
+
 		// clear state
-		setFirst('')
-		setSecond('')
-		return handleClose()
+		setForm({
+			color: colors[0],
+			target_lang: '',
+			target_text: '',
+			explain_lang: '',
+			explain_text: '',
+			memo: '',
+			date: '',
+		})
+
+		handleClose()
 	}
 
 	const handleChange = (e: { target: HTMLTextAreaElement }) => {
+		if (!e?.target) return setForm({ ...form, color: e })
 		const { value, name } = e.target
-		if (name === 'target') return setFirst(value)
-		setSecond(value)
+		setForm({ ...form, [name]: value })
 	}
 	return (
 		<ModalPortal wrapperId="portal-root">
@@ -73,18 +106,25 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 						<h5>Select the language colors!</h5>
 					</div>
 					<ColorPalette
-						selectedColor={selectedColor}
-						setSelectedColor={setSelectedColor}
+						selectedColor={form.color}
+						name="color"
+						handleChange={handleChange}
 					/>
-					<form action="">
+					<form>
 						<LanguageSelect
-							value={first}
+							value={form.target_text}
 							handleChange={handleChange}
-							type="target"
+							name="target"
 						/>
-						<LanguageSelect value={second} handleChange={handleChange} />
+						<LanguageSelect
+							name="explain"
+							value={form.explain_text}
+							handleChange={handleChange}
+						/>
 						<p>Memo</p>
 						<textarea
+							value={form.memo}
+							onChange={handleChange}
 							className="TargetArea memo"
 							name="memo"
 							cols={40}
@@ -106,20 +146,23 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 export default WriteModal
 
 type LangType = {
-	type?: string
+	name: string
 	value: string
 	handleChange: (text: ChangeEvent<HTMLTextAreaElement>) => void
 }
 //TODO: select 스타일 수정 필요 ( 사파리 - 크롬 다름 )
-function LanguageSelect({ type, value, handleChange }: LangType) {
+
+function LanguageSelect({ value, handleChange, name }: LangType) {
+	const LANG = name + '_lang'
+	const TEXT = name + '_text'
 	return (
 		<>
-			<div className={classNames('Selection', type)}>
-				<label htmlFor={'lang' + type} />
-				<select name="language" id={'lang' + type}>
+			<div className={classNames('Selection', name)}>
+				<label htmlFor={LANG} />
+				<select name={LANG} id={name} onChange={handleChange}>
 					<option value="">languages</option>
 					{languages.map((item) => (
-						<option key={item.code} value={item.name}>
+						<option key={item.code} value={item.code}>
 							{item.name}
 						</option>
 					))}
@@ -127,14 +170,14 @@ function LanguageSelect({ type, value, handleChange }: LangType) {
 			</div>
 			<textarea
 				placeholder={
-					type === 'target'
+					name === 'target'
 						? 'Write what you learned today'
 						: 'Write explanation in your language'
 				}
 				className="TargetArea"
 				value={value}
 				onChange={handleChange}
-				name={type}
+				name={TEXT}
 				cols={40}
 				rows={5}
 			/>
@@ -142,15 +185,13 @@ function LanguageSelect({ type, value, handleChange }: LangType) {
 	)
 }
 
-function ColorPalette({ setSelectedColor, selectedColor }) {
-	const handleColor = (item: string) => {
-		setSelectedColor(item)
-	}
+function ColorPalette({ selectedColor, handleChange, name }) {
 	return (
 		<div className="PaletteWrapper">
 			{colors.map((item) => (
 				<div
-					onClick={() => handleColor(item)}
+					name={name}
+					onClick={() => handleChange(item)}
 					className={classNames('Palette', item)}
 					key={item}
 				>
