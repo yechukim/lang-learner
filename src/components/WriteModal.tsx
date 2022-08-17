@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import languages from '../data/languages'
 import ModalPortal from '../portal'
@@ -8,6 +8,7 @@ import './WriteModal.scss'
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { db } from '../services/firestore'
 import { showSweetAlert } from '../util/alert'
+import { getStorage, setStorage } from '../util/storage'
 
 type ModalType = {
 	isOpen: boolean
@@ -19,10 +20,11 @@ type ColorsType = typeof colors[number]
 
 function WriteModal({ isOpen, handleClose }: ModalType) {
 	const { theme }: any = useContext(ThemeContext)
+	const [savedLang, setSavedLang] = useState(null)
 
 	const [form, setForm] = useState({
 		color: colors[0],
-		target_lang: 'French',
+		target_lang: '',
 		explain_lang: '',
 		target_text: '',
 		explain_text: '',
@@ -35,6 +37,17 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 		const closeOnEsacpe = (e: KeyboardEvent) =>
 			e.key === 'Escape' ? handleClose() : null
 		document.body.addEventListener('keydown', closeOnEsacpe)
+
+		const savedData = getStorage('@lang')
+		if (!savedData) return
+		setSavedLang(savedData)
+
+		setForm({
+			...form,
+			target_lang: savedData.target,
+			explain_lang: savedData.explain,
+		})
+
 		return () => {
 			document.body.removeEventListener('keydown', closeOnEsacpe)
 		}
@@ -43,8 +56,8 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 	if (!isOpen) return null
 
 	const handleClick = () => {
-		//if (form.target_lang === '')
-		//	return showSweetAlert('Please select Language', theme)
+		if (form.target_lang === '')
+			return showSweetAlert('Please select Language', theme)
 		if (!(form.target_text.length > 0))
 			return showSweetAlert('Please write what you learned!', theme)
 
@@ -66,12 +79,14 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 		setForm({
 			...form,
 			color: colors[0],
-			target_lang: '',
 			target_text: '',
-			explain_lang: '',
 			explain_text: '',
 			memo: '',
 			date: '',
+		})
+		setStorage('@lang', {
+			target: form.target_lang,
+			explain: form.explain_lang,
 		})
 
 		handleClose()
@@ -106,11 +121,13 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 							value={form.target_text}
 							handleChange={handleChange}
 							name="target"
+							form={form}
 						/>
 						<LanguageSelect
 							name="explain"
 							value={form.explain_text}
 							handleChange={handleChange}
+							form={form}
 						/>
 						<p>Memo</p>
 						<textarea
@@ -140,26 +157,26 @@ type LangType = {
 	name: string
 	value: string
 	handleChange: (text: any) => void
+	savedLang: { target: string; explain: string }
 }
 //TODO: select 스타일 수정 필요 ( 사파리 - 크롬 다름 )
 
-function LanguageSelect({ value, handleChange, name }: LangType) {
+function LanguageSelect({ value, handleChange, name, form }: LangType) {
 	const LANG = name + '_lang'
 	const TEXT = name + '_text'
 	return (
 		<>
 			<div className={classNames('Selection', name)}>
 				<label htmlFor={LANG} />
-				<select name={LANG} id={name} onChange={handleChange}>
+				<select
+					name={LANG}
+					id={name}
+					onChange={handleChange}
+					value={name === 'target' ? form.target_lang : form.explain_lang}
+				>
 					<option value="">languages</option>
 					{languages.map((item) => (
-						<option
-							key={item.code}
-							value={item.name}
-							selected={
-								item.name === 'French' && name === 'target' ? true : false
-							}
-						>
+						<option key={item.code} value={item.name}>
 							{item.name}
 						</option>
 					))}

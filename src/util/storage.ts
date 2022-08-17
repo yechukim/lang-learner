@@ -7,7 +7,7 @@ function getStorage(key: string) {
 		console.error(e)
 	}
 }
-function setStorage(key: string, value: string) {
+function setStorage(key: string, value: {}) {
 	try {
 		localStorage.setItem(key, JSON.stringify(value))
 	} catch (e) {
