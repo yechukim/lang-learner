@@ -43,7 +43,7 @@ function SearchInput({ theme }) {
 }
 
 function ThemeSwitch({ setTheme, theme }) {
-	const [checked, setChecked] = useState(false)
+	const [checked, setChecked] = useState(theme === 'dark' ? true : false)
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(e.target.checked)
