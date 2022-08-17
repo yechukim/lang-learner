@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 function SideMenu() {
-	const { theme } = useContext(ThemeContext)
+	const { theme }: any = useContext(ThemeContext)
 
 	return (
 		<nav className={classNames(theme)}>

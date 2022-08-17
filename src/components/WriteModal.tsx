@@ -14,11 +14,11 @@ type ModalType = {
 	handleClose: () => void
 }
 
-const colors = ['pink', 'blue', 'green', 'yellow'] as const
+const colors = ['pink', 'blue', 'green', 'yellow']
 type ColorsType = typeof colors[number]
 
 function WriteModal({ isOpen, handleClose }: ModalType) {
-	const { theme } = useContext(ThemeContext)
+	const { theme }: any = useContext(ThemeContext)
 
 	const [form, setForm] = useState({
 		color: colors[0],
@@ -139,7 +139,7 @@ export default WriteModal
 type LangType = {
 	name: string
 	value: string
-	handleChange: (text: ChangeEvent<HTMLTextAreaElement>) => void
+	handleChange: (text: any) => void
 }
 //TODO: select 스타일 수정 필요 ( 사파리 - 크롬 다름 )
 
