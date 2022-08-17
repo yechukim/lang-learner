@@ -5,9 +5,9 @@ import ModalPortal from '../portal'
 import TextButton from './TextButton'
 import classNames from 'classnames'
 import './WriteModal.scss'
-import Swal from 'sweetalert2'
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { db } from '../services/firestore'
+import { showSweetAlert } from '../util/alert'
 
 type ModalType = {
 	isOpen: boolean
@@ -15,6 +15,7 @@ type ModalType = {
 }
 
 const colors = ['pink', 'blue', 'green', 'yellow'] as const
+type ColorsType = typeof colors[number]
 
 function WriteModal({ isOpen, handleClose }: ModalType) {
 	const { theme } = useContext(ThemeContext)
@@ -42,27 +43,10 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 
 	const handleClick = () => {
 		if (form.target_lang === '')
-			return Swal.fire({
-				title: '✏️',
-				text: 'Please select Language',
-				icon: 'warning',
-				confirmButtonText: 'Okay',
-				confirmButtonColor: '#5285f2',
-				background: theme !== 'dark' ? '#fff' : '#1b1b1b',
-				color: theme !== 'dark' ? '#111' : '#ddd',
-			})
-
+			return showSweetAlert('Please select Language', theme)
 		if (!(form.target_text.length > 0))
-			return Swal.fire({
-				title: '✏️',
-				text: 'Please write what you learned!',
-				icon: 'warning',
-				confirmButtonText: 'Okay',
-				confirmButtonColor: '#5285f2',
-				background: theme !== 'dark' ? '#fff' : '#1b1b1b',
-				color: theme !== 'dark' ? '#111' : '#ddd',
-			})
-		// save to db
+			return showSweetAlert('Please write what you learned!', theme)
+
 		const addToDatabase = async () => {
 			try {
 				await addDoc(collection(db, 'cards'), {
@@ -71,11 +55,13 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 				})
 			} catch (e) {
 				console.error(e)
+				return alert('error')
 			}
+			//TODO: make a toast message
+			return alert('success')
 		}
 		addToDatabase()
 
-		// clear state
 		setForm({
 			color: colors[0],
 			target_lang: '',
@@ -89,8 +75,11 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 		handleClose()
 	}
 
-	const handleChange = (e: { target: HTMLTextAreaElement }) => {
-		if (!e?.target) return setForm({ ...form, color: e })
+	const handleChange = (
+		e: { target: HTMLTextAreaElement },
+		color?: ColorsType
+	) => {
+		if (color) return setForm({ ...form, color })
 		const { value, name } = e.target
 		setForm({ ...form, [name]: value })
 	}
@@ -185,17 +174,21 @@ function LanguageSelect({ value, handleChange, name }: LangType) {
 	)
 }
 
-function ColorPalette({ selectedColor, handleChange, name }) {
+type PaleeteType = {
+	selectedColor: ColorsType
+	handleChange: (e: any, text: ColorsType) => void
+	name: 'color'
+}
+function ColorPalette({ selectedColor, handleChange }: PaleeteType) {
 	return (
 		<div className="PaletteWrapper">
 			{colors.map((item) => (
 				<div
-					name={name}
-					onClick={() => handleChange(item)}
+					onClick={(e) => handleChange(e, item)}
 					className={classNames('Palette', item)}
 					key={item}
 				>
-					{selectedColor === item && <i className="ri-check-line ri-xl"></i>}
+					{selectedColor === item && <i className="ri-check-line ri-xl" />}
 				</div>
 			))}
 		</div>
