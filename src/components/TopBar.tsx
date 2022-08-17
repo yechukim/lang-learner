@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { getStorage, setStorage } from '../util/storage'
 
 function TopBar() {
-	const { theme, setTheme } = useContext(ThemeContext)
+	const { theme, setTheme }: any = useContext(ThemeContext)
 
 	return (
 		<div className="TopWrapper">
@@ -18,10 +18,10 @@ function TopBar() {
 
 export default TopBar
 
-function SearchInput({ theme }) {
+function SearchInput({ theme }: any) {
 	const [keyword, setKeyword] = useState('')
 
-	const handleSearch = (e) => {
+	const handleSearch = (e: any) => {
 		const { value } = e.target
 		setKeyword(value)
 
@@ -43,7 +43,7 @@ function SearchInput({ theme }) {
 	)
 }
 
-function ThemeSwitch({ setTheme, theme }) {
+function ThemeSwitch({ setTheme, theme }: any) {
 	const [checked, setChecked] = useState(theme === 'dark' ? true : false)
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

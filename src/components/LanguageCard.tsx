@@ -4,16 +4,16 @@ import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import './LanguageCard.scss'
 
-function LanguageCard({ cards }) {
-	const { theme } = useContext(ThemeContext)
-	console.log(cards)
-	function formatDate(date) {
+function LanguageCard({ cards }: any) {
+	const { theme }: any = useContext(ThemeContext)
+
+	function formatDate(date: Date) {
 		return formatDistanceToNow(date) + ' ago'
 	}
 	return (
 		<div className="CardWrapper">
 			{cards.length > 0 &&
-				cards.map((item) => (
+				cards.map((item: any) => (
 					<div key={item.id} className={classNames('Card', theme)}>
 						<div className="CardTop">
 							<div className={classNames('NameOfLanguage', item.color)}>

@@ -12,7 +12,7 @@ function App() {
 		setIsModalOpen(true)
 	}
 	return (
-		<>
+		<div className="ParentWrapper">
 			<SideMenu />
 			<WriteModal
 				isOpen={isModalOpen}
@@ -22,7 +22,7 @@ function App() {
 				<Route path="/" element={<HomePage handleClick={handleClick} />} />
 				<Route path="/bookmarks" element={<BookmarkPage />} />
 			</Routes>
-		</>
+		</div>
 	)
 }
 
