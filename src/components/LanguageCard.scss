@@ -9,8 +9,8 @@
 
 	.Card {
 		background-color: #fff;
-		width: 400px;
-		height: 300px;
+		width: 300px;
+		height: 200px;
 		overflow: scroll;
 		border-radius: 1.2em;
 		margin: 5px 5px 10px 5px;
@@ -18,28 +18,96 @@
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
 			rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 		cursor: pointer;
-
+		padding: 10px 15px;
 		&:hover {
 			transform: scale(1.05) rotate(-1deg);
 		}
+		.CardTop {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			i {
+				color: $darkest;
+			}
+		}
 
 		.NameOfLanguage {
-			margin: 10px 15px;
-			width: 120px;
-			height: 32px;
+			width: 80px;
+			height: 25px;
 			background-color: $c-pink;
 			border-radius: 1.2em;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			font-size: 0.8em;
 			color: #fff;
 			letter-spacing: 1px;
+			&.pink {
+				background-color: $c-pink;
+				&.Explain {
+					background: linear-gradient(to right, $c-pink, $c-blue);
+				}
+			}
+			&.blue {
+				background-color: $c-blue;
+				&.Explain {
+					background: linear-gradient(to right, $c-blue, $c-green);
+				}
+			}
+			&.green {
+				background-color: $c-green;
+				&.Explain {
+					background: linear-gradient(to right, $c-green, $c-yellow);
+				}
+			}
+			&.yellow {
+				background-color: $c-yellow;
+				&.Explain {
+					background: linear-gradient(to right, $c-yellow, $c-pink);
+				}
+			}
+			&.Explain {
+				margin-top: 10px;
+			}
+		}
+
+		.CardMain {
+			font-family: 'Open Sans', sans-serif;
+			letter-spacing: 0.2px;
+			margin-top: 10px;
+		}
+		.Memo {
+			margin-top: 10px;
+			font-size: 0.9em;
+			> p {
+				margin-bottom: 5px;
+				color: #444;
+				font-weight: 800;
+				font-size: 0.8em;
+				font-family: 'Open Sans', sans-serif;
+			}
+		}
+		.Date {
+			text-align: end;
+
+			div {
+				color: #444;
+				font-size: 0.7em;
+				font-family: 'Open Sans', sans-serif;
+			}
 		}
 
 		&.dark {
 			background-color: $darkest;
 			box-shadow: rgba(85, 85, 85, 0.1) 0px 4px 6px -1px,
 				rgba(70, 70, 70, 0.06) 0px 2px 4px -1px;
+
+			i {
+				color: $main-light;
+			}
+			.CardMain {
+				color: $main-light;
+			}
 		}
 	}
 }

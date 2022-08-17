@@ -22,12 +22,13 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 
 	const [form, setForm] = useState({
 		color: colors[0],
-		target_lang: '',
+		target_lang: 'French',
 		explain_lang: '',
 		target_text: '',
 		explain_text: '',
 		memo: '',
 		date: '',
+		isSaved: false,
 	})
 
 	useEffect(() => {
@@ -42,8 +43,8 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 	if (!isOpen) return null
 
 	const handleClick = () => {
-		if (form.target_lang === '')
-			return showSweetAlert('Please select Language', theme)
+		//if (form.target_lang === '')
+		//	return showSweetAlert('Please select Language', theme)
 		if (!(form.target_text.length > 0))
 			return showSweetAlert('Please write what you learned!', theme)
 
@@ -63,6 +64,7 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 		addToDatabase()
 
 		setForm({
+			...form,
 			color: colors[0],
 			target_lang: '',
 			target_text: '',
@@ -151,7 +153,13 @@ function LanguageSelect({ value, handleChange, name }: LangType) {
 				<select name={LANG} id={name} onChange={handleChange}>
 					<option value="">languages</option>
 					{languages.map((item) => (
-						<option key={item.code} value={item.code}>
+						<option
+							key={item.code}
+							value={item.name}
+							selected={
+								item.name === 'French' && name === 'target' ? true : false
+							}
+						>
 							{item.name}
 						</option>
 					))}
