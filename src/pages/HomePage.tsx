@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react'
 import AddButton from '../components/AddButton'
 import LanguageCard from '../components/LanguageCard'
 import PageLayout from '../components/PageLayout'
 import TopBar from '../components/TopBar'
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../services/firestore'
 
 type DocDataType = {
 	color: string
@@ -17,22 +14,7 @@ type DocDataType = {
 	target_text: string
 }
 
-function HomePage({ handleClick }: any) {
-	const [langCards, setLangCards] = useState<any>([])
-
-	useEffect(() => {
-		const getCards = async () => {
-			const querySnapshot = await getDocs(collection(db, 'cards'))
-			let docArray: any[] = []
-			querySnapshot.forEach((doc) => {
-				docArray.push({ ...doc.data(), id: doc.id })
-			})
-			setLangCards(docArray)
-		}
-
-		getCards()
-	}, [])
-
+function HomePage({ handleClick, langCards }: any) {
 	return (
 		<PageLayout>
 			<TopBar />

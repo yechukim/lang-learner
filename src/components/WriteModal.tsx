@@ -13,12 +13,13 @@ import { getStorage, setStorage } from '../util/storage'
 type ModalType = {
 	isOpen: boolean
 	handleClose: () => void
+	reload: () => void
 }
 
 const colors = ['pink', 'blue', 'green', 'yellow']
 type ColorsType = typeof colors[number]
 
-function WriteModal({ isOpen, handleClose }: ModalType) {
+function WriteModal({ isOpen, handleClose, reload }: ModalType) {
 	const { theme }: any = useContext(ThemeContext)
 	const [savedLang, setSavedLang] = useState(null)
 
@@ -88,6 +89,7 @@ function WriteModal({ isOpen, handleClose }: ModalType) {
 			target: form.target_lang,
 			explain: form.explain_lang,
 		})
+		reload()
 
 		handleClose()
 	}
