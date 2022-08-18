@@ -12,4 +12,23 @@ function showSweetAlert(msg: string, theme: string) {
 		color: theme !== 'dark' ? '#111' : '#ddd',
 	})
 }
-export { showSweetAlert }
+
+function showToastMessage(msg: string, isSuccess: boolean, theme: string) {
+	return Swal.mixin({
+		toast: true,
+		position: 'top-right',
+		iconColor: '#ff1d86',
+		customClass: {
+			popup: 'colored-toast',
+		},
+		background: theme === 'dark' ? '#1b1b1b' : '#fff',
+		text: msg,
+		showConfirmButton: false,
+		timer: 1500,
+		timerProgressBar: true,
+	}).fire({
+		icon: isSuccess ? 'success' : 'error',
+		title: msg,
+	})
+}
+export { showSweetAlert, showToastMessage }
