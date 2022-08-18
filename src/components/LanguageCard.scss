@@ -2,10 +2,20 @@
 @import '../styles/colors.scss';
 
 .CardWrapper {
+	max-width: 1080px;
 	margin: 15px auto;
-	max-width: 820px;
-	display: flex;
-	flex-wrap: wrap;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 5px;
+	justify-items: center;
+	align-items: center;
+
+	@media screen and (max-width: 1200px) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media screen and (max-width: 920px) {
+		grid-template-columns: 1fr;
+	}
 
 	.Card {
 		background-color: #fff;
