@@ -7,34 +7,59 @@ import { showToastMessage } from '../util/alert'
 import { db } from '../services/firestore'
 import './LanguageCard.scss'
 
-function LanguageCards({ cards }: any) {
+function LanguageCards({ cards, bookmark, setCards }: any) {
+	const handleDeleteBookmark = (id: string) => {
+		const filtered = cards.filter((doc: any) => doc.id !== id)
+		setCards(filtered)
+	}
 	return (
 		<div className="CardWrapper">
 			{cards.length > 0 &&
 				cards.map((item: any) => (
-					<SingleCard originalItem={item} key={item.id} />
+					<SingleCard
+						originalItem={item}
+						key={item.id}
+						bookmark={bookmark}
+						deleteCallback={handleDeleteBookmark}
+					/>
 				))}
 		</div>
 	)
 }
 export default LanguageCards
 
-function SingleCard({ originalItem }: any) {
+function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
 	const { theme }: any = useContext(ThemeContext)
 
 	const [item, setItem] = useState(Object.assign({}, originalItem))
 
 	const handleBookmark = async (id: string) => {
+		const cardRef = doc(db, 'cards', id)
+		//remove from bookmark
+		if (bookmark) {
+			deleteCallback(id)
+			if (item.id === id) {
+				try {
+					await updateDoc(cardRef, {
+						isSaved: false,
+					})
+					return showToastMessage('remove from Bookmark', true, theme)
+				} catch (e: any) {
+					return showToastMessage(e.message, false, theme)
+				}
+			}
+		}
+
 		if (item.id === id && item.isSaved)
 			return showToastMessage('You can undo from Bookmarks tab', false, theme)
-
+		//add to bookmark
 		if (item.id === id) {
 			setItem({
 				...item,
 				isSaved: true,
 			})
 		}
-		const cardRef = doc(db, 'cards', id)
+
 		try {
 			await updateDoc(cardRef, {
 				isSaved: true,

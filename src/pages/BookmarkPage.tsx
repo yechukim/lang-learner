@@ -21,7 +21,7 @@ function BookmarkPage() {
 	}, [])
 	return (
 		<PageLayout>
-			<LanguageCards cards={savedCards} />
+			<LanguageCards cards={savedCards} bookmark setCards={setSavedCards} />
 		</PageLayout>
 	)
 }

@@ -14,7 +14,7 @@ function App() {
 		setIsModalOpen(true)
 	}
 
-	const [langCards, setLangCards] = useState<object>([])
+	const [langCards, setLangCards] = useState<any>([])
 
 	const getCards = async () => {
 		const querySnapshot = await getDocs(collection(db, 'cards'))
