@@ -18,6 +18,8 @@
 	}
 
 	.Card {
+		display: flex;
+		flex-direction: column;
 		background-color: #fff;
 		width: 300px;
 		height: 200px;
@@ -100,6 +102,7 @@
 		}
 		.Date {
 			text-align: end;
+			margin-top: auto;
 
 			div {
 				color: #444;
