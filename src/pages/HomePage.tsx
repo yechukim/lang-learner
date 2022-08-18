@@ -1,5 +1,5 @@
 import AddButton from '../components/AddButton'
-import LanguageCard from '../components/LanguageCard'
+import LanguageCards from '../components/LanguageCards'
 import PageLayout from '../components/PageLayout'
 import TopBar from '../components/TopBar'
 
@@ -19,7 +19,7 @@ function HomePage({ handleClick, langCards }: any) {
 		<PageLayout>
 			<TopBar />
 			<AddButton handleClick={handleClick} />
-			<LanguageCard cards={langCards} />
+			<LanguageCards cards={langCards} />
 		</PageLayout>
 	)
 }
