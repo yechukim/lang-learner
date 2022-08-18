@@ -26,7 +26,7 @@ function SingleCard({ originalItem }: any) {
 
 	const handleBookmark = async (id: string) => {
 		if (item.id === id && item.isSaved)
-			return showToastMessage('You can remove from Bookmarks tab', false, theme)
+			return showToastMessage('You can undo from Bookmarks tab', false, theme)
 
 		if (item.id === id) {
 			setItem({
