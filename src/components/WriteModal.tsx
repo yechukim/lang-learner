@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import './WriteModal.scss'
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
 import { db } from '../services/firestore'
-import { showSweetAlert, showToastMessage } from '../util/alert'
+import { showToastMessage } from '../util/alert'
 import { getStorage, setStorage } from '../util/storage'
 
 type ModalType = {
@@ -80,7 +80,7 @@ function WriteModal({ isOpen, handleClose, reload }: ModalType) {
 				})
 			} catch (e) {
 				console.error(e)
-				return showToastMessage('Error', false, theme)
+				return showToastMessage('Error! - can not be added', false, theme)
 			}
 			//TODO: make a toast message
 			return showToastMessage('Added!', true, theme)

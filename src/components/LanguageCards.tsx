@@ -29,7 +29,6 @@ function SingleCard({ originalItem }: any) {
 			return showToastMessage('You can remove from Bookmarks tab', false, theme)
 
 		if (item.id === id) {
-			item.isSaved = true
 			setItem({
 				...item,
 				isSaved: true,
@@ -38,7 +37,7 @@ function SingleCard({ originalItem }: any) {
 		const cardRef = doc(db, 'cards', id)
 		try {
 			await updateDoc(cardRef, {
-				isSaved: item.isSaved,
+				isSaved: true,
 			})
 		} catch (e: any) {
 			return showToastMessage(e.message, false, theme)
