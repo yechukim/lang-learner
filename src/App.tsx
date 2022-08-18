@@ -5,7 +5,7 @@ import BookmarkPage from './pages/BookmarkPage'
 import HomePage from './pages/HomePage'
 import './styles/main.scss'
 import WriteModal from './components/WriteModal'
-import { getDocs, collection } from 'firebase/firestore'
+import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import { db } from './services/firestore'
 
 function App() {
@@ -17,7 +17,8 @@ function App() {
 	const [langCards, setLangCards] = useState<any>([])
 
 	const getCards = async () => {
-		const querySnapshot = await getDocs(collection(db, 'cards'))
+		const q = query(collection(db, 'cards'), orderBy('date', 'desc'))
+		const querySnapshot = await getDocs(q)
 		let docArray: any[] = []
 		querySnapshot.forEach((doc) => {
 			docArray.push({ ...doc.data(), id: doc.id })
