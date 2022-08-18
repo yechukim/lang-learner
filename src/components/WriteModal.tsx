@@ -58,10 +58,20 @@ function WriteModal({ isOpen, handleClose, reload }: ModalType) {
 
 	const handleClick = () => {
 		if (form.target_lang === '')
-			return showSweetAlert('Please select Language', theme)
+			return showToastMessage('Please select language', false, theme)
 		if (!(form.target_text.length > 0))
-			return showSweetAlert('Please write what you learned!', theme)
-
+			return showToastMessage('Please write what you studied', false, theme)
+		if (
+			form.explain_text.length > 40 ||
+			form.target_text.length > 40 ||
+			form.memo.length > 40
+		) {
+			return showToastMessage(
+				"texts can't be longer than 40 characters",
+				false,
+				theme
+			)
+		}
 		const addToDatabase = async () => {
 			try {
 				await addDoc(collection(db, 'cards'), {

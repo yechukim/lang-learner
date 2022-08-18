@@ -22,7 +22,6 @@ function showToastMessage(msg: string, isSuccess: boolean, theme: string) {
 			popup: 'colored-toast',
 		},
 		background: theme === 'dark' ? '#1b1b1b' : '#fff',
-		text: msg,
 		showConfirmButton: false,
 		timer: 1500,
 		timerProgressBar: true,
