@@ -7,6 +7,7 @@ import './styles/main.scss'
 import WriteModal from './components/WriteModal'
 import { getDocs, collection } from 'firebase/firestore'
 import { db } from './services/firestore'
+
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const handleClick = () => {
@@ -31,7 +32,7 @@ function App() {
 	}
 
 	return (
-		<div className="ParentWrapper">
+		<>
 			<SideMenu />
 			<WriteModal
 				isOpen={isModalOpen}
@@ -45,7 +46,7 @@ function App() {
 				/>
 				<Route path="/bookmarks" element={<BookmarkPage />} />
 			</Routes>
-		</div>
+		</>
 	)
 }
 

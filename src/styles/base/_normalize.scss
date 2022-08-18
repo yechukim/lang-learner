@@ -22,6 +22,9 @@ html {
 
 body {
 	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
 }
 
 /**
@@ -51,7 +54,7 @@ h1 {
  */
 
 hr {
-	box-sizing: content-box; /* 1 */
+	box-sizing: border-box; /* 1 */
 	height: 0; /* 1 */
 	overflow: visible; /* 2 */
 }

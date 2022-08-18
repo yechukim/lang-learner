@@ -1,11 +1,12 @@
 @import '../styles/colors.scss';
+
 .Wrapper {
 	background-color: $main-light;
 	padding-left: 274px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 
 	&.dark {
 		background-color: $main-dark;
