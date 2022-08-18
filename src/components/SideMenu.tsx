@@ -18,7 +18,7 @@ function SideMenu() {
 						<li>Bookmarks</li>
 					</Link>
 				</div>
-				<li>Sign Out</li>
+				{/* <li>Sign Out</li> */}
 			</div>
 		</nav>
 	)
