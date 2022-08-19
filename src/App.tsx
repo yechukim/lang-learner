@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import SideMenu from './components/SideMenu'
 import BookmarkPage from './pages/BookmarkPage'
 import HomePage from './pages/HomePage'
@@ -9,10 +9,15 @@ import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import { db } from './services/firestore'
 
 function App() {
+	const location = useLocation()
+
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const handleClick = () => {
 		setIsModalOpen(true)
 	}
+	useEffect(() => {
+		getCards()
+	}, [location])
 
 	const [langCards, setLangCards] = useState<any>([])
 
@@ -25,9 +30,7 @@ function App() {
 		})
 		setLangCards(docArray)
 	}
-	useEffect(() => {
-		getCards()
-	}, [])
+
 	const reload = () => {
 		getCards()
 	}
