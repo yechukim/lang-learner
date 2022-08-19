@@ -169,7 +169,7 @@ type LangType = {
 	name: string
 	value: string
 	handleChange: (text: any) => void
-	savedLang: { target: string; explain: string }
+	form: any
 }
 //TODO: select 스타일 수정 필요 ( 사파리 - 크롬 다름 )
 
