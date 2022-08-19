@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-function SideMenu() {
+
+function SideMenu({ isOpen }: any) {
 	const { theme }: any = useContext(ThemeContext)
 
 	return (
-		<nav className={classNames(theme)}>
+		<nav className={classNames(theme, isOpen)}>
 			<div className="title">💡 Lang Learner</div>
 			<div className="list-wrapper">
 				<div className="top-list">

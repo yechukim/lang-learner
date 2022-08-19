@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch'
 import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import classNames from 'classnames'
-import { getStorage, setStorage } from '../util/storage'
+import { setStorage } from '../util/storage'
 
 function TopBar() {
 	const { theme, setTheme }: any = useContext(ThemeContext)

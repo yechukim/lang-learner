@@ -7,6 +7,17 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	i {
+		cursor: pointer;
+		&.dark {
+			color: $main-light;
+		}
+
+		&.ri-menu-line {
+			margin-right: 10px;
+		}
+	}
 }
 
 .Input {
@@ -23,11 +34,7 @@
 	> div {
 		padding: 0 3px 0 15px;
 	}
-	.ri-xl {
-		&.dark {
-			color: $light-gray;
-		}
-	}
+
 	input {
 		padding: 5px 15px;
 		height: 52px;

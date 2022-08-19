@@ -2,7 +2,7 @@
 
 .Wrapper {
 	background-color: $main-light;
-	padding-left: 274px;
+	padding-left: 270px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	width: 100%;
@@ -10,6 +10,10 @@
 	position: fixed;
 	overflow-y: scroll;
 	top: 0;
+
+	@media screen and (max-width: 600px) {
+		padding-left: 0;
+	}
 
 	&.dark {
 		background-color: $main-dark;

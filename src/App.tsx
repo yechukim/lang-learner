@@ -36,7 +36,7 @@ function App() {
 	}
 
 	return (
-		<>
+		<div>
 			<SideMenu />
 			<WriteModal
 				isOpen={isModalOpen}
@@ -50,7 +50,7 @@ function App() {
 				/>
 				<Route path="/bookmarks" element={<BookmarkPage />} />
 			</Routes>
-		</>
+		</div>
 	)
 }
 
