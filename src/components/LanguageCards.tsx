@@ -31,7 +31,7 @@ export default LanguageCards
 function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
 	const { theme }: any = useContext(ThemeContext)
 
-	const [item, setItem] = useState(Object.assign({}, originalItem))
+	const [item, setItem] = useState(originalItem)
 
 	const handleBookmark = async (id: string) => {
 		const cardRef = doc(db, 'cards', id)
