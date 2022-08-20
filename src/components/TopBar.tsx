@@ -5,12 +5,12 @@ import { ThemeContext } from '../context/ThemeContext'
 import classNames from 'classnames'
 import { setStorage } from '../util/storage'
 
-function TopBar() {
+function TopBar({ langCards }: any) {
 	const { theme, setTheme }: any = useContext(ThemeContext)
 
 	return (
 		<div className="TopWrapper">
-			<SearchInput theme={theme} />
+			<SearchInput theme={theme} langCards={langCards} />
 			<ThemeSwitch theme={theme} setTheme={setTheme} />
 		</div>
 	)
@@ -18,12 +18,18 @@ function TopBar() {
 
 export default TopBar
 
-function SearchInput({ theme }: any) {
+function SearchInput({ theme, langCards }: any) {
 	const [keyword, setKeyword] = useState('')
 
 	const handleSearch = (e: any) => {
 		const { value } = e.target
 		setKeyword(value)
+
+		const filtered = langCards.filter((item: any) =>
+			[item.target_text, item.explain_text].some((text) =>
+				text.includes(keyword)
+			)
+		)
 
 		if (value.length > 15) return alert("it can't be longer than 15 letters")
 	}

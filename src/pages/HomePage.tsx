@@ -14,10 +14,10 @@ type DocDataType = {
 	target_text: string
 }
 
-function HomePage({ handleClick, langCards }: any) {
+function HomePage({ handleClick, langCards, setLangCards }: any) {
 	return (
 		<PageLayout>
-			<TopBar />
+			<TopBar setLangCards={setLangCards} langCards={langCards} />
 			<AddButton handleClick={handleClick} />
 			<LanguageCards cards={langCards} />
 		</PageLayout>

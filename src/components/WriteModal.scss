@@ -17,6 +17,10 @@
 		border-radius: 2em;
 		position: relative;
 
+		@media screen and (max-width: 600px) {
+			width: 400px;
+		}
+
 		.CloseButton {
 			display: inline-block;
 			position: absolute;
@@ -80,6 +84,9 @@
 			font-size: 0.8rem;
 			font-family: 'Open Sans', sans-serif;
 
+			@media screen and (max-width: 600px) {
+				width: 300px;
+			}
 			&.memo {
 				height: 100px;
 			}
