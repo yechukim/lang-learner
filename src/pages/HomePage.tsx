@@ -17,7 +17,7 @@ type DocDataType = {
 function HomePage({ handleClick, langCards, setLangCards }: any) {
 	return (
 		<PageLayout>
-			<TopBar setLangCards={setLangCards} langCards={langCards} />
+			<TopBar />
 			<AddButton handleClick={handleClick} />
 			<LanguageCards cards={langCards} />
 		</PageLayout>

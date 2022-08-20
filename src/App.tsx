@@ -7,18 +7,16 @@ import './styles/main.scss'
 import WriteModal from './components/WriteModal'
 import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import { db } from './services/firestore'
+import { useSearchContext } from './context/SearchContext'
 
 function App() {
 	const location = useLocation()
-
+	const { keyword } = useSearchContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
+
 	const handleClick = () => {
 		setIsModalOpen(true)
 	}
-	useEffect(() => {
-		getCards()
-	}, [location])
-
 	const [langCards, setLangCards] = useState<any>([])
 
 	const getCards = async () => {
@@ -30,10 +28,17 @@ function App() {
 		})
 		setLangCards(docArray)
 	}
+	useEffect(() => {
+		getCards()
+	}, [location])
 
 	const reload = () => {
 		getCards()
 	}
+
+	const filtered = langCards.filter((item: any) =>
+		[item.target_text, item.explain_text].some((text) => text.includes(keyword))
+	)
 
 	return (
 		<div>
@@ -46,7 +51,7 @@ function App() {
 			<Routes>
 				<Route
 					path="/"
-					element={<HomePage langCards={langCards} handleClick={handleClick} />}
+					element={<HomePage langCards={filtered} handleClick={handleClick} />}
 				/>
 				<Route path="/bookmarks" element={<BookmarkPage />} />
 			</Routes>

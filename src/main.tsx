@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
+import { SearchProvider } from './context/SearchContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<ThemeProvider>
-				<App />
+				<SearchProvider>
+					<App />
+				</SearchProvider>
 			</ThemeProvider>
 		</BrowserRouter>
 	</React.StrictMode>
