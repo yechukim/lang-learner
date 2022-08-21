@@ -9,8 +9,10 @@ import { useUserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { setStorage } from '../util/storage'
 import { showToastMessage } from '../util/alert'
-import { useContext } from 'react'
-import { ThemeContext } from '@emotion/react'
+import { useContext, useEffect } from 'react'
+import { ThemeContext } from '../context/ThemeContext'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { db } from '../services/firestore'
 
 type ProviderType = 'google' | 'github'
 function getProvider(type: ProviderType) {
@@ -26,9 +28,13 @@ function getProvider(type: ProviderType) {
 const auth = getAuth()
 
 function LoginPage() {
-	const { setUser } = useUserContext()
+	const { user, setUser } = useUserContext()
 	const { theme }: any = useContext(ThemeContext)
 	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (user) navigate('/')
+	}, [])
 
 	const handleGithub = () => {
 		signInWithPopup(auth, getProvider('github'))
@@ -38,6 +44,7 @@ function LoginPage() {
 				const user = result.user
 				setUser(user.email)
 				setStorage('@user', token!)
+				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')
 			})
 			.catch((error) => {
@@ -57,6 +64,7 @@ function LoginPage() {
 				const user = result.user
 				setUser(user.email)
 				setStorage('@user', token!)
+				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')
 			})
 			.catch((error) => {
@@ -67,6 +75,17 @@ function LoginPage() {
 				showToastMessage(errorMessage, false, theme)
 			})
 	}
+
+	const addUserToDatabase = async (user: any) => {
+		try {
+			await setDoc(doc(db, 'users', user.uid), { user: user.email })
+		} catch (err: any) {
+			console.error(err)
+			return showToastMessage(err.message, false, theme)
+		}
+		return showToastMessage('Successfully Logged in', true, theme)
+	}
+
 	return (
 		<>
 			<div className="LoginBackground">
