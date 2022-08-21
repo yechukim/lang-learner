@@ -5,7 +5,7 @@ import { ThemeContext } from '../context/ThemeContext'
 import classNames from 'classnames'
 import { setStorage } from '../util/storage'
 import { useSearchContext } from '../context/SearchContext'
-
+import { alpha, styled } from '@mui/material'
 function TopBar() {
 	const { theme, setTheme }: any = useContext(ThemeContext)
 
@@ -62,8 +62,20 @@ function ThemeSwitch({ setTheme, theme }: any) {
 	return (
 		<div className={classNames('Switch', theme)}>
 			<i className="ri-sun-line ri-lg" />
-			<Switch size="medium" checked={checked} onChange={handleChange} />
+			<MintSwitch size="medium" checked={checked} onChange={handleChange} />
 			<i className="ri-moon-line ri-lg" />
 		</div>
 	)
 }
+
+const MintSwitch = styled(Switch)(({ theme }) => ({
+	'& .MuiSwitch-switchBase.Mui-checked': {
+		color: '#49d6c9',
+		'&:hover': {
+			backgroundColor: alpha('#0DD6C4', theme.palette.action.hoverOpacity),
+		},
+	},
+	'& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+		backgroundColor: '#78D6CD',
+	},
+}))

@@ -13,7 +13,7 @@ import { useContext, useEffect } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../services/firestore'
-
+import { ReactComponent as Logo } from '../assets/bunny.svg'
 type ProviderType = 'google' | 'github'
 function getProvider(type: ProviderType) {
 	if (type === 'google') {
@@ -101,7 +101,14 @@ function LoginPage() {
 		<>
 			<div className="LoginBackground">
 				<h2 className="Logo">💡 Lang Learner</h2>
+				<div>
+					<Logo />
+				</div>
 				<div className="LoginButtons">
+					<div className="Google" onClick={handleGoogleLogin}>
+						<span className="icon-google" />
+						Log In with Google
+					</div>
 					<div className="Github" onClick={handleGithub}>
 						<svg
 							className="icon-github"
@@ -116,10 +123,6 @@ function LoginPage() {
 							></path>
 						</svg>
 						Log In with Github
-					</div>
-					<div className="Google" onClick={handleGoogleLogin}>
-						<span className="icon-google" />
-						Log In with Google
 					</div>
 				</div>
 			</div>

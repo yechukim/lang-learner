@@ -17,6 +17,12 @@ function App() {
 	const { keyword } = useSearchContext()
 	const { user } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [localUser, setLocalUser] = useState()
+
+	useEffect(() => {
+		const data = getStorage('@user')
+		setLocalUser(data)
+	}, [user])
 
 	const handleClick = () => {
 		setIsModalOpen(true)
@@ -49,7 +55,7 @@ function App() {
 
 	return (
 		<div>
-			{user && <SideMenu />}
+			{localUser && <SideMenu />}
 			<WriteModal
 				isOpen={isModalOpen}
 				handleClose={() => setIsModalOpen(false)}
@@ -69,7 +75,7 @@ function App() {
 				<Route
 					path="/"
 					element={
-						user ? (
+						user || localUser ? (
 							<HomePage langCards={filtered} handleClick={handleClick} />
 						) : (
 							<LoginPage />
