@@ -44,7 +44,7 @@ function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
 					await updateDoc(cardRef, {
 						isSaved: false,
 					})
-					return showToastMessage('remove from Bookmark', true, theme)
+					return showToastMessage('removed from Bookmark', true, theme)
 				} catch (e: any) {
 					return showToastMessage(e.message, false, theme)
 				}
