@@ -8,10 +8,13 @@ import WriteModal from './components/WriteModal'
 import { getDocs, collection, query, orderBy } from 'firebase/firestore'
 import { db } from './services/firestore'
 import { useSearchContext } from './context/SearchContext'
+import LoginPage from './pages/LoginPage'
+import { useUserContext } from './context/UserContext'
 
 function App() {
 	const location = useLocation()
 	const { keyword } = useSearchContext()
+	const { user } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const handleClick = () => {
@@ -42,13 +45,14 @@ function App() {
 
 	return (
 		<div>
-			<SideMenu />
+			{user && <SideMenu />}
 			<WriteModal
 				isOpen={isModalOpen}
 				handleClose={() => setIsModalOpen(false)}
 				reload={reload}
 			/>
 			<Routes>
+				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/"
 					element={<HomePage langCards={filtered} handleClick={handleClick} />}
