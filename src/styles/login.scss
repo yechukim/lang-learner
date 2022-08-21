@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&family=Ubuntu:wght@400;700&display=swap');
+@import '../styles/colors.scss';
+
+.LoginBackground {
+	height: 100%;
+	background-color: $main-light;
+	width: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.LoginButtons {
+		> div {
+			background-color: #fff;
+			font-size: 0.9em;
+			border: 1px solid #878787;
+			color: $darkest;
+			padding: 8px 15px;
+			color: #878787;
+			border-radius: 0.4em;
+			margin-top: 10px;
+			font-family: 'Open Sans', sans-serif;
+			cursor: pointer;
+			height: 50px;
+
+			&:hover {
+				color: #111;
+			}
+		}
+
+		.Github {
+			display: flex;
+			align-items: center;
+			.icon-github {
+				margin-right: 10px;
+			}
+		}
+
+		.Google {
+			display: flex;
+			align-items: center;
+
+			.icon-google {
+				display: inline-block;
+				margin-right: 10px;
+				background: url(https://accounts.scdn.co/sso/images/google-icon.1cdc8fce9609d07f0e9d8d0bc4b61f8f.svg)
+					center center no-repeat;
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		background-color: $darkest;
+
+		.LoginButtons {
+			> div {
+				border: 2px solid $main-light;
+			}
+		}
+	}
+}
