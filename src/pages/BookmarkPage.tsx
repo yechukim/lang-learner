@@ -3,13 +3,14 @@ import LanguageCards from '../components/LanguageCards'
 import PageLayout from '../components/PageLayout'
 import { db } from '../services/firestore'
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore'
+import { getStorage } from '../util/storage'
 
 function BookmarkPage() {
 	const [savedCards, setSavedCards] = useState<object>([])
 
 	const getCards = async () => {
 		const q = query(
-			collection(db, 'cards'),
+			collection(db, 'users', getStorage('@uid'), 'cards'),
 			where('isSaved', '==', true),
 			orderBy('date', 'desc')
 		)

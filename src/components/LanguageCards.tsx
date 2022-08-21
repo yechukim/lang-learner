@@ -6,6 +6,7 @@ import { ThemeContext } from '../context/ThemeContext'
 import { showToastMessage } from '../util/alert'
 import { db } from '../services/firestore'
 import './LanguageCard.scss'
+import { getStorage } from '../util/storage'
 
 function LanguageCards({ cards, bookmark, setCards }: any) {
 	const handleDeleteBookmark = (id: string) => {
@@ -34,7 +35,7 @@ function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
 	const [item, setItem] = useState(originalItem)
 
 	const handleBookmark = async (id: string) => {
-		const cardRef = doc(db, 'cards', id)
+		const cardRef = doc(db, 'users', getStorage('@uid'), 'cards', id)
 		//remove from bookmark
 		if (bookmark) {
 			deleteCallback(id)
