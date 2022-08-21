@@ -14,7 +14,7 @@ type DocDataType = {
 	target_text: string
 }
 
-function HomePage({ handleClick, langCards, setLangCards }: any) {
+function HomePage({ handleClick, langCards }: any) {
 	return (
 		<PageLayout>
 			<TopBar />

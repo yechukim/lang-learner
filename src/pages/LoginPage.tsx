@@ -44,6 +44,7 @@ function LoginPage() {
 				const user = result.user
 				setUser(user.email)
 				setStorage('@user', token!)
+				setStorage('@uid', user.uid)
 				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')
 			})
@@ -64,6 +65,7 @@ function LoginPage() {
 				const user = result.user
 				setUser(user.email)
 				setStorage('@user', token!)
+				setStorage('@uid', user.uid)
 				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')
 			})

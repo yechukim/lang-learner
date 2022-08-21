@@ -1,12 +1,23 @@
 import './SideMenu.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
+import { useUserContext } from '../context/UserContext'
+import { setStorage } from '../util/storage'
+import { showToastMessage } from '../util/alert'
 
 function SideMenu({ isOpen }: any) {
 	const { theme }: any = useContext(ThemeContext)
+	const navigate = useNavigate()
+	const { user, setUser } = useUserContext()
 
+	const handleSignOut = () => {
+		setUser(null)
+		setStorage('@user', '')
+		navigate('/login')
+		showToastMessage('Successfully Signned out', true, theme)
+	}
 	return (
 		<nav className={classNames(theme, isOpen)}>
 			<div className="title">💡 Lang Learner</div>
@@ -19,7 +30,7 @@ function SideMenu({ isOpen }: any) {
 						<li>Bookmarks</li>
 					</Link>
 				</div>
-				{/* <li>Sign Out</li> */}
+				<li onClick={handleSignOut}>Sign Out</li>
 			</div>
 		</nav>
 	)

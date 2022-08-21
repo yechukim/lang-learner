@@ -73,8 +73,10 @@ function WriteModal({ isOpen, handleClose, reload }: ModalType) {
 			)
 		}
 		const addToDatabase = async () => {
+			const re = getStorage('@uid')
+			console.log(re)
 			try {
-				await addDoc(collection(db, 'cards'), {
+				await addDoc(collection(db, 'users', getStorage('@uid'), 'cards'), {
 					...form,
 					date: Timestamp.now(),
 				})

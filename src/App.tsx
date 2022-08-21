@@ -10,6 +10,7 @@ import { db } from './services/firestore'
 import { useSearchContext } from './context/SearchContext'
 import LoginPage from './pages/LoginPage'
 import { useUserContext } from './context/UserContext'
+import { getStorage } from './util/storage'
 
 function App() {
 	const location = useLocation()
@@ -23,7 +24,10 @@ function App() {
 	const [langCards, setLangCards] = useState<any>([])
 
 	const getCards = async () => {
-		const q = query(collection(db, 'cards'), orderBy('date', 'desc'))
+		const q = query(
+			collection(db, 'users', getStorage('@uid'), 'cards'),
+			orderBy('date', 'desc')
+		)
 		const querySnapshot = await getDocs(q)
 		let docArray: any[] = []
 		querySnapshot.forEach((doc) => {
@@ -52,12 +56,30 @@ function App() {
 				reload={reload}
 			/>
 			<Routes>
-				<Route path="/login" element={<LoginPage />} />
+				<Route
+					path="/login"
+					element={
+						!user ? (
+							<LoginPage />
+						) : (
+							<HomePage langCards={filtered} handleClick={handleClick} />
+						)
+					}
+				/>
 				<Route
 					path="/"
-					element={<HomePage langCards={filtered} handleClick={handleClick} />}
+					element={
+						user ? (
+							<HomePage langCards={filtered} handleClick={handleClick} />
+						) : (
+							<LoginPage />
+						)
+					}
 				/>
-				<Route path="/bookmarks" element={<BookmarkPage />} />
+				<Route
+					path="/bookmarks"
+					element={!user ? <LoginPage /> : <BookmarkPage />}
+				/>
 			</Routes>
 		</div>
 	)
