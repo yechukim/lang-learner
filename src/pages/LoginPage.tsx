@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import '../styles/login.scss'
 import {
 	getAuth,
