@@ -7,9 +7,18 @@
 	width: 100%;
 	position: fixed;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: space-around;
 	align-items: center;
 
+	.Logo {
+		text-align: center;
+		font-weight: 700;
+		font-size: 1.4em;
+		letter-spacing: 0.2px;
+		color: $main;
+		font-family: 'Ubuntu', sans-serif;
+	}
 	.LoginButtons {
 		> div {
 			background-color: #fff;
@@ -51,9 +60,10 @@
 			}
 		}
 	}
-	@media (prefers-color-scheme: dark) {
+}
+@media (prefers-color-scheme: dark) {
+	.LoginBackground {
 		background-color: $darkest;
-
 		.LoginButtons {
 			> div {
 				border: 2px solid $main-light;
