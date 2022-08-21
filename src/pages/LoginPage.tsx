@@ -7,11 +7,11 @@ import {
 } from 'firebase/auth'
 import { useUserContext } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
-import { setStorage } from '../util/storage'
+import { getStorage, setStorage } from '../util/storage'
 import { showToastMessage } from '../util/alert'
 import { useContext, useEffect } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../services/firestore'
 
 type ProviderType = 'google' | 'github'
@@ -33,7 +33,8 @@ function LoginPage() {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		if (user) navigate('/')
+		const isLoggedIn = getStorage('@user')
+		if (isLoggedIn || user) navigate('/')
 	}, [])
 
 	const handleGithub = () => {
@@ -42,8 +43,12 @@ function LoginPage() {
 				const credential = GoogleAuthProvider.credentialFromResult(result)
 				const token = credential!.accessToken
 				const user = result.user
-				setUser(user.email)
-				setStorage('@user', token!)
+				const userObj = {
+					token,
+					user: user.email,
+				}
+				setUser(userObj)
+				setStorage('@user', userObj)
 				setStorage('@uid', user.uid)
 				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')
@@ -63,8 +68,12 @@ function LoginPage() {
 				const credential = GoogleAuthProvider.credentialFromResult(result)
 				const token = credential!.accessToken
 				const user = result.user
-				setUser(user.email)
-				setStorage('@user', token!)
+				const userObj = {
+					token,
+					user: user.email,
+				}
+				setUser(userObj)
+				setStorage('@user', userObj)
 				setStorage('@uid', user.uid)
 				addUserToDatabase(user)
 				if (token && user.email) return navigate('/')

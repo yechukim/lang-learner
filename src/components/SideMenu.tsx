@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { useUserContext } from '../context/UserContext'
-import { setStorage } from '../util/storage'
+import { removeStorage, setStorage } from '../util/storage'
 import { showToastMessage } from '../util/alert'
 
 function SideMenu({ isOpen }: any) {
@@ -14,7 +14,7 @@ function SideMenu({ isOpen }: any) {
 
 	const handleSignOut = () => {
 		setUser(null)
-		setStorage('@user', '')
+		removeStorage(['@uid', '@lang', '@user', '@theme'])
 		navigate('/login')
 		showToastMessage('Successfully Signned out', true, theme)
 	}

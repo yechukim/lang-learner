@@ -14,4 +14,12 @@ function setStorage(key: string, value: {}) {
 		console.error(e)
 	}
 }
-export { setStorage, getStorage }
+
+function removeStorage(keys: string[]) {
+	try {
+		keys.map((key) => localStorage.removeItem(key))
+	} catch (e) {
+		console.error(e)
+	}
+}
+export { setStorage, getStorage, removeStorage }
