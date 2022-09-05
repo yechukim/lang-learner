@@ -9,13 +9,11 @@ import { showToastMessage } from '../util/alert'
 
 function SideMenu({ isOpen }: any) {
 	const { theme }: any = useContext(ThemeContext)
-	const navigate = useNavigate()
 	const { user, setUser } = useUserContext()
 
 	const handleSignOut = () => {
 		setUser(null)
 		removeStorage(['@uid', '@lang', '@user', '@theme'])
-		navigate('/login')
 		showToastMessage('Successfully Signned out', true, theme)
 	}
 	return (

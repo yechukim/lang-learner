@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import SideMenu from './components/SideMenu'
 import BookmarkPage from './pages/BookmarkPage'
 import HomePage from './pages/HomePage'
@@ -18,10 +18,12 @@ function App() {
 	const { user } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [localUser, setLocalUser] = useState()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const data = getStorage('@user')
 		setLocalUser(data)
+		if (!user) navigate('/login')
 	}, [user])
 
 	const handleClick = () => {
@@ -55,7 +57,7 @@ function App() {
 
 	return (
 		<div>
-			{localUser && <SideMenu />}
+			{user && <SideMenu />}
 			<WriteModal
 				isOpen={isModalOpen}
 				handleClose={() => setIsModalOpen(false)}
