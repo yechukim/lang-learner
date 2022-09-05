@@ -6,7 +6,7 @@
 - add cards to bookmarks, or look it up on search bar 
 - login with github or google 
 - save your language setting and themes
-- finally, a cute rabbit logo from move Luck 🍀
+- finally, a cute rabbit logo from movie [Luck🍀](https://tv.apple.com/us/movie/luck/umc.cmc.5w6fq1u39v7ozsdv3jkx0nrfs)
 
 #### Login
 <img width="650" alt="Screen Shot 2022-08-27 at 17 49 49" src="https://user-images.githubusercontent.com/61838900/188444223-d344c8a4-9c8b-41c6-a3ad-eb4568b4cc5f.png">
