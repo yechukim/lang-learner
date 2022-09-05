@@ -15,16 +15,16 @@ import { getStorage } from './util/storage'
 function App() {
 	const location = useLocation()
 	const { keyword } = useSearchContext()
-	const { user } = useUserContext()
+	const { user, setUser } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [localUser, setLocalUser] = useState()
 	const navigate = useNavigate()
 
 	useEffect(() => {
 		const data = getStorage('@user')
-		setLocalUser(data)
-		if (!user) navigate('/login')
-	}, [user])
+
+		if (data) setUser(data)
+		if (!data) navigate('/login')
+	}, [])
 
 	const handleClick = () => {
 		setIsModalOpen(true)
@@ -77,7 +77,7 @@ function App() {
 				<Route
 					path="/"
 					element={
-						user || localUser ? (
+						user ? (
 							<HomePage langCards={filtered} handleClick={handleClick} />
 						) : (
 							<LoginPage />
