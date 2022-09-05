@@ -39,8 +39,15 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			i {
-				color: $darkest;
+
+			> div {
+				display: flex;
+				> div:nth-child(1) {
+					margin-right: 10px;
+				}
+				i:nth {
+					color: $darkest;
+				}
 			}
 		}
 

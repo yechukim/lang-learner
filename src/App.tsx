@@ -70,7 +70,11 @@ function App() {
 						!user ? (
 							<LoginPage />
 						) : (
-							<HomePage langCards={filtered} handleClick={handleClick} />
+							<HomePage
+								reload={reload}
+								langCards={filtered}
+								handleClick={handleClick}
+							/>
 						)
 					}
 				/>
@@ -78,7 +82,11 @@ function App() {
 					path="/"
 					element={
 						user ? (
-							<HomePage langCards={filtered} handleClick={handleClick} />
+							<HomePage
+								reload={reload}
+								langCards={filtered}
+								handleClick={handleClick}
+							/>
 						) : (
 							<LoginPage />
 						)

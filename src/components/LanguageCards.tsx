@@ -1,14 +1,14 @@
 import classNames from 'classnames'
 import { formatDistanceToNow } from 'date-fns'
-import { doc, updateDoc } from 'firebase/firestore'
-import { useContext, useEffect, useState } from 'react'
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { useContext, useState } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { showToastMessage } from '../util/alert'
 import { db } from '../services/firestore'
 import './LanguageCard.scss'
 import { getStorage } from '../util/storage'
 
-function LanguageCards({ cards, bookmark, setCards }: any) {
+function LanguageCards({ cards, bookmark, setCards, reload }: any) {
 	const handleDeleteBookmark = (id: string) => {
 		const filtered = cards.filter((doc: any) => doc.id !== id)
 		setCards(filtered)
@@ -18,6 +18,7 @@ function LanguageCards({ cards, bookmark, setCards }: any) {
 			{cards.length > 0 &&
 				cards.map((item: any) => (
 					<SingleCard
+						reload={reload}
 						originalItem={item}
 						key={item.id}
 						bookmark={bookmark}
@@ -29,10 +30,17 @@ function LanguageCards({ cards, bookmark, setCards }: any) {
 }
 export default LanguageCards
 
-function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
+function SingleCard({ originalItem, bookmark, deleteCallback, reload }: any) {
 	const { theme }: any = useContext(ThemeContext)
 
 	const [item, setItem] = useState(originalItem)
+
+	const handleRemove = async (id: string) => {
+		const cardRef = doc(db, 'users', getStorage('@uid'), 'cards', id)
+		await deleteDoc(cardRef)
+		reload()
+		showToastMessage('it has been deleted', true, theme)
+	}
 
 	const handleBookmark = async (id: string) => {
 		const cardRef = doc(db, 'users', getStorage('@uid'), 'cards', id)
@@ -76,12 +84,17 @@ function SingleCard({ originalItem, bookmark, deleteCallback }: any) {
 				<div className={classNames('NameOfLanguage', item.color)}>
 					{item.target_lang}
 				</div>
-				<div onClick={() => handleBookmark(item.id)}>
-					{item.isSaved ? (
-						<i className="ri-bookmark-fill ri-lg" />
-					) : (
-						<i className="ri-bookmark-line ri-lg" />
-					)}
+				<div className="Icons">
+					<div onClick={() => handleBookmark(item.id)}>
+						{item.isSaved ? (
+							<i className="ri-bookmark-fill ri-lg" />
+						) : (
+							<i className="ri-bookmark-line ri-lg" />
+						)}
+					</div>
+					<div onClick={() => handleRemove(item.id)}>
+						<i className="ri-delete-bin-line ri-lg" />
+					</div>
 				</div>
 			</div>
 			<div className="CardMain">{item.target_text}</div>
